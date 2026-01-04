@@ -213,23 +213,18 @@ graph.add_conditional_edges(
 
 LangGraph supports **loops natively**.
 
----
-
 ## Common Loop Patterns
 - Retry until approved  
 - Re-plan until confident  
 - Tool-call until answer found  
-
----
 
 ## Example Use Cases
 - Agent retries after validation failure  
 - Planner → Executor → Reviewer loop  
 - Self-correcting agents  
 
----
-
 ## Why Loops Are Safe
 - State is explicit  
 - Exit conditions are controlled  
 
+---
