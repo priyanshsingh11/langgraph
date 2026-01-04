@@ -124,3 +124,29 @@ Keep state minimal
 Store only what is required
 Every key should have a clear purpose
 
+## Nodes
+
+Nodes are **Python functions**.
+
+Each node:
+- Receives the current **state**
+- Performs **exactly one task**
+- Returns **partial state updates**
+
+### Node Design Principles
+Nodes should be:
+- Deterministic  
+- Side-effect minimal  
+- Single-responsibility  
+
+### Example
+
+```python
+def planner(state: AgentState):
+    plan = f"Plan steps for: {state['user_input']}"
+    return {
+        "messages": state["messages"] + [plan]
+    }
+Nodes do not control flow.
+They only compute and update the state.
+```
