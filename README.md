@@ -151,3 +151,60 @@ def planner(state: AgentState):
 # Nodes do not control flow.
 # They only compute and update the state.
 ```
+
+## Edges
+
+Edges define the **execution flow** between nodes.
+
+Edges determine:
+- What runs next
+- When execution stops
+- How decisions are handled
+
+---
+
+## Types of Edges
+- Direct edges  
+- Conditional edges  
+- Looping edges  
+
+---
+
+## Direct Edges
+
+A direct edge always moves execution from one node to the next.
+
+### Example
+
+```python
+graph.add_edge("planner", "executor")
+```
+## Conditional Edges
+
+Conditional edges allow **dynamic routing** based on the current state.
+
+### Used When
+- Decisions are required  
+- Validation determines the next step  
+- Retry logic is needed  
+
+---
+
+## Routing Function
+
+```python
+def route(state: AgentState):
+    if state["approved"]:
+        return "final"
+    return "retry"
+
+------------------------
+
+graph.add_conditional_edges(
+    "reviewer",
+    route,
+    {
+        "final": "end",
+        "retry": "executor"
+    }
+)
