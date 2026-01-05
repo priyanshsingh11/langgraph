@@ -228,3 +228,140 @@ LangGraph supports **loops natively**.
 - Exit conditions are controlled  
 
 ---
+# Graph Construction
+
+## Typical Steps to Build a Graph
+
+1. Define state  
+2. Define nodes  
+3. Add edges  
+4. Set entry point  
+5. Compile the graph  
+
+---
+
+## Example
+
+```python
+from langgraph.graph import StateGraph
+
+graph = StateGraph(AgentState)
+
+graph.add_node("planner", planner)
+graph.add_node("executor", executor)
+graph.add_node("reviewer", reviewer)
+
+graph.set_entry_point("planner")
+graph.add_edge("planner", "executor")
+graph.add_conditional_edges("reviewer", route)
+
+app = graph.compile()
+```
+
+# Execution Model
+
+LangGraph executes:
+
+- Node-by-node  
+- Based on edges  
+- Using the shared state  
+
+Execution continues until:
+
+- An explicit end node is reached  
+- No outgoing edges exist  
+
+This makes execution:
+
+- Predictable  
+- Debuggable  
+- Deterministic  
+
+---
+
+# Multi-Agent Systems
+
+LangGraph is ideal for multi-agent workflows.
+
+Each agent:
+
+- Is represented as a node or subgraph  
+- Shares global or partial state  
+- Communicates via state updates  
+
+Examples:
+
+- Planner agent  
+- Research agent  
+- Coding agent  
+- Reviewer agent  
+
+LangGraph handles:
+
+- Agent coordination  
+- Turn-taking  
+- Decision routing  
+
+---
+
+# Persistence and Long-Running Workflows
+
+LangGraph supports:
+
+- Checkpointing  
+- State persistence  
+- Resuming execution  
+
+This enables:
+
+- Long-running tasks  
+- Human-in-the-loop systems  
+- Recovery after failure  
+
+---
+
+# When to Use LangGraph
+
+## Use LangGraph when:
+
+- Logic cannot be linear  
+- Decisions affect next steps  
+- Validation and retries matter  
+- Multiple agents collaborate  
+- State must persist across steps  
+
+## Do NOT use LangGraph for:
+
+- Simple prompt → response tasks  
+- One-step LLM calls  
+- Static pipelines  
+
+---
+
+# Production Best Practices
+
+- Keep state small and explicit  
+- Make nodes single-purpose  
+- Avoid logic inside edges  
+- Log state transitions  
+- Define clear exit conditions  
+- Treat graphs like backend services  
+
+---
+
+# Final Summary
+
+LangGraph is:
+
+- A control-flow engine for LLMs  
+- A state machine for agentic systems  
+- The missing piece for production AI workflows  
+
+LangChain + LangGraph together enable:
+
+- Powerful capabilities  
+- Reliable execution  
+- Scalable agent systems  
+
+> If LangChain is the brain,  
+> LangGraph is the nervous system.
